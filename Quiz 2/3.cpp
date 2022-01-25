@@ -28,23 +28,43 @@ void insertAtTail(Node* &head, int val){
 
 }
 
-void printLinkList(Node* n){
+void printLinkList(Node* n,int arr[]){
+    int c=0;
     while(n!=NULL){
-        cout<<n->Data<<endl;
+       // cout<<n->Data<<endl;
+       arr[c]=n->Data;
         n=n->Next;
+        c++;
     }
 }
 
 int main()
 {
     Node* head = NULL;
+    int n;
+    cout<<"Enter size: ";
+    cin>>n;
 
+    int arr[n+1];
+/*
     insertAtTail(head,1);
     insertAtTail(head,2);
     insertAtTail(head,3);
 
+*/
+    for(int i=0;i<n;i++){
+        int a;
+        cin>>a;
+        insertAtTail(head,a);
+    }
+    printLinkList(head,arr);
 
-    printLinkList(head);
+    int temp = arr[n/2];
+    arr[n/2]=arr[0];
+    arr[0]=temp;
 
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
     return 0;
 }

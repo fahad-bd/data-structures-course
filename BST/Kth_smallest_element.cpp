@@ -1,5 +1,8 @@
 #include<iostream>
+#include<stack>
 using namespace std;
+
+
 struct Node
 {
     int data;
@@ -38,28 +41,30 @@ void display_inOrder(Node *root){
     
 }
 
-void display_preOrder(Node *root){
-    if(root==NULL){
-        return;
+int kthSmakkestNode(Node* root, int k){
+    stack<Node*> st;
+    Node* temp = root;
+    int count =0;
+    while(1){
+        if(temp!=NULL){
+            st.push(temp);
+            temp = temp->left;
+        }
+        else{
+            if(st.empty()){
+                break;
+            }
+            temp = st.top();
+            st.pop();
+            count++;
+
+            if(count == k){
+                return temp->data;
+            }
+            temp = temp->right;
+        }
     }
-    
-    cout<<root->data<<" ";
-
-    display_preOrder(root->left);
-
-    display_preOrder(root->right);   
-}
-
-void display_postOrder(Node *root){
-    if(root==NULL){
-        return;
-    }
-
-    display_postOrder(root->left);
-
-    display_postOrder(root->right);   
-
-    cout<<root->data<<" ";
+    return -1;
 }
 
 int main()
@@ -73,16 +78,12 @@ int main()
     insert_at_BST(root,60);
     insert_at_BST(root,80);
 
-    cout<<"In order: ";
     display_inOrder(root);
     cout<<endl;
-
-    cout<<"Pre order: ";
-    display_preOrder(root);
-    cout<<endl;
-
-    cout<<"Post order: ";
-    display_postOrder(root);
-    cout<<endl;
+    int k;
+    cout<<"Input k: ";
+    cin>>k;
+    cout<<"Kth smallest element: ";
+    cout<<kthSmakkestNode(root,k)<<endl;
     return 0;
 }

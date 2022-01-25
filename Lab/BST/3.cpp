@@ -38,51 +38,49 @@ void display_inOrder(Node *root){
     
 }
 
-void display_preOrder(Node *root){
+void delete_internal_node(Node *root){
     if(root==NULL){
+        return; 
+    }
+    if(root->right != NULL){
+        root->data = root->right->data;
+        root->right = NULL;
         return;
     }
-    
-    cout<<root->data<<" ";
-
-    display_preOrder(root->left);
-
-    display_preOrder(root->right);   
-}
-
-void display_postOrder(Node *root){
-    if(root==NULL){
+    else if(root->left != NULL){
+        root->data = root->left->data;
+        root->right = NULL;
         return;
     }
+    delete_internal_node(root->left);
+    delete_internal_node(root->right);
 
-    display_postOrder(root->left);
-
-    display_postOrder(root->right);   
-
-    cout<<root->data<<" ";
 }
 
 int main()
 {
     Node *root = NULL;
+    int n;
+    cout<<"Input number of Node's in BST: ";
+    cin>>n;
 
-    root = insert_at_BST(root,30);
-    insert_at_BST(root,20);
-    insert_at_BST(root,40);
-    insert_at_BST(root,70);
-    insert_at_BST(root,60);
-    insert_at_BST(root,80);
+    cout<<"Enter node value: ";
+    int a;
+    cin>>a;
+    root = insert_at_BST(root,a);
 
+    for (int i = 1; i < n; i++)
+    {
+        cin>>a;
+        insert_at_BST(root,a);
+    }
+   
     cout<<"In order: ";
     display_inOrder(root);
     cout<<endl;
 
-    cout<<"Pre order: ";
-    display_preOrder(root);
-    cout<<endl;
-
-    cout<<"Post order: ";
-    display_postOrder(root);
-    cout<<endl;
+    delete_internal_node(root);
+    cout<<"After delete internal node: ";
+    display_inOrder(root);
     return 0;
 }

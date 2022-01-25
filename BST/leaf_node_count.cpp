@@ -1,5 +1,6 @@
 #include<iostream>
 using namespace std;
+//int c = 0;
 struct Node
 {
     int data;
@@ -38,30 +39,30 @@ void display_inOrder(Node *root){
     
 }
 
-void display_preOrder(Node *root){
-    if(root==NULL){
-        return;
-    }
+
+int count_leaf_node(Node* root){
+    if(root == NULL) return 0;
     
-    cout<<root->data<<" ";
+    if(root->left==NULL && root->right==NULL){
+        return 1;
+    } 
+    
 
-    display_preOrder(root->left);
-
-    display_preOrder(root->right);   
-}
-
-void display_postOrder(Node *root){
-    if(root==NULL){
-        return;
+    return count_leaf_node(root->left) + count_leaf_node(root->right);
     }
 
-    display_postOrder(root->left);
 
-    display_postOrder(root->right);   
-
-    cout<<root->data<<" ";
+/*
+int countNode(Node* root){
+    if(root == NULL) return 0;
+    return countNode(root->left) + countNode(root->right) + 1;
 }
 
+int sumNode(Node* root){
+    if(root==NULL) return 0;
+    return sumNode(root->left) + sumNode(root->right) + root->data;
+}
+*/
 int main()
 {
     Node *root = NULL;
@@ -77,12 +78,12 @@ int main()
     display_inOrder(root);
     cout<<endl;
 
-    cout<<"Pre order: ";
-    display_preOrder(root);
-    cout<<endl;
+   // cout<<"Total node: "<<countNode(root)<<endl;
 
-    cout<<"Post order: ";
-    display_postOrder(root);
-    cout<<endl;
+  //  cout<<"Sum of all node: "<<sumNode(root)<<endl;
+    int c=0;
+    
+    cout<<"Number of leaf Node: ";
+    cout<<count_leaf_node(root)<<endl;
     return 0;
 }

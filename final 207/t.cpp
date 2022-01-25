@@ -1,25 +1,25 @@
 #include<iostream>
 using namespace std;
 
-class Node{
+struct NodeLink{
     public:
     int Data;
-    Node* Next;
+    NodeLink* Next;
 
-    Node(int value){
+    NodeLink(int value){
         Data=value;
         Next=NULL;
     }
 };
 
-void insertAtTail(Node* &head, int val){
-    Node* newNode = new Node(val);
+void insertAtTail(NodeLink* &head, int val){
+    NodeLink* newNode = new NodeLink(val);
 
     if(head==NULL){
         head=newNode;
         return;
     }
-    Node* temp = head;
+    NodeLink* temp = head;
     while(temp->Next!=NULL)
     {
         temp=temp->Next;
@@ -28,7 +28,7 @@ void insertAtTail(Node* &head, int val){
 
 }
 
-void printLinkList(Node* n){
+void printLinkList(NodeLink* n){
     while(n!=NULL){
         cout<<n->Data<<endl;
         n=n->Next;
@@ -37,12 +37,11 @@ void printLinkList(Node* n){
 
 int main()
 {
-    Node* head = NULL;
+    NodeLink* head = NULL;
 
     insertAtTail(head,1);
     insertAtTail(head,2);
     insertAtTail(head,3);
-
 
     printLinkList(head);
 

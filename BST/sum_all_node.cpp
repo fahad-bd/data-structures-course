@@ -38,28 +38,14 @@ void display_inOrder(Node *root){
     
 }
 
-void display_preOrder(Node *root){
-    if(root==NULL){
-        return;
-    }
-    
-    cout<<root->data<<" ";
-
-    display_preOrder(root->left);
-
-    display_preOrder(root->right);   
+int countNode(Node* root){
+    if(root == NULL) return 0;
+    return countNode(root->left) + countNode(root->right) + 1;
 }
 
-void display_postOrder(Node *root){
-    if(root==NULL){
-        return;
-    }
-
-    display_postOrder(root->left);
-
-    display_postOrder(root->right);   
-
-    cout<<root->data<<" ";
+int sumNode(Node* root){
+    if(root==NULL) return 0;
+    return sumNode(root->left) + sumNode(root->right) + root->data;
 }
 
 int main()
@@ -77,12 +63,10 @@ int main()
     display_inOrder(root);
     cout<<endl;
 
-    cout<<"Pre order: ";
-    display_preOrder(root);
-    cout<<endl;
+    cout<<"Total node: "<<countNode(root)<<endl;
 
-    cout<<"Post order: ";
-    display_postOrder(root);
-    cout<<endl;
+    cout<<"Sum of all node: "<<sumNode(root)<<endl;
+
+
     return 0;
 }
